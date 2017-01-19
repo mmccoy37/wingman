@@ -37,10 +37,6 @@ public abstract class GameAPI {
         getterInstance.updateCharacterMovement(character, arg1);
     }
 
-    public static void updateItemLayer(int x, int y) {
-        getterInstance.updateItemLayer(x, y);
-    }
-
     public static int getAppletHeight() {
         return getterInstance.getAppletHeight();
     }
@@ -81,10 +77,6 @@ public abstract class GameAPI {
         return getterInstance.getExternalPlayerLocations();
     }
 
-    public static int getFps() {
-        return getterInstance.getFps();
-    }
-
     public static int getGameDrawingMode() {
         return getterInstance.getGameDrawingMode();
     }
@@ -95,10 +87,6 @@ public abstract class GameAPI {
 
     public static int getGameState() {
         return getterInstance.getGameState();
-    }
-
-    public static LinkedNodeList[][][] getGroundItems() {
-        return getterInstance.getGroundItems();
     }
 
     public static NodeTable getItemContainers() {
@@ -229,10 +217,6 @@ public abstract class GameAPI {
             setterInstance.setExternalPlayerLocations(value);
         }
 
-        public static void setFps(int value) {
-            setterInstance.setFps(value);
-        }
-
         public static void setGameDrawingMode(int value) {
             setterInstance.setGameDrawingMode(value);
         }
@@ -243,10 +227,6 @@ public abstract class GameAPI {
 
         public static void setGameState(int value) {
             setterInstance.setGameState(value);
-        }
-
-        public static void setGroundItems(LinkedNodeList[][][] value) {
-            setterInstance.setGroundItems(value);
         }
 
         public static void setItemContainers(NodeTable value) {

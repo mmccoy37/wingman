@@ -2,39 +2,27 @@ package com.wingman.client.api.mapping;
 
 public class MethodInfo {
 
-    public final String realName;
+    public final String cleanName;
     public final String name;
     public final String owner;
-    public final String type;
-    public final String realType;
+    public final String obfType;
+    public final String deobfType;
     public final String desc;
-    public final String realDesc;
+    public final String cleanDesc;
     public final boolean isStatic;
+    public final boolean hasDummy;
+    public final int dummy;
 
-    public final boolean hasOpaquePredicate;
-    public final int opaquePredicate;
-
-    public MethodInfo(String realName,
-                      String owner,
-                      String name,
-                      String type,
-                      String realType,
-                      String desc,
-                      String realDesc,
-                      boolean isStatic,
-                      boolean hasOpaquePredicate,
-                      int opaquePredicate) {
-
-        this.realName = realName;
+    public MethodInfo(String cleanName, String owner, String name, String obfType, String deobfType, String desc, String cleanDesc, boolean isStatic, boolean hasDummy, int dummy) {
+        this.cleanName = cleanName;
         this.owner = owner;
         this.name = name;
-        this.type = type;
-        this.realType = realType;
+        this.obfType = obfType;
+        this.deobfType = deobfType;
         this.desc = desc;
-        this.realDesc = realDesc;
+        this.cleanDesc = cleanDesc;
         this.isStatic = isStatic;
-
-        this.hasOpaquePredicate = hasOpaquePredicate;
-        this.opaquePredicate = opaquePredicate;
+        this.hasDummy = hasDummy;
+        this.dummy = dummy;
     }
 }

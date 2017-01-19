@@ -21,8 +21,6 @@ public interface Static {
 
     void updateCharacterMovement(Character character, int arg1);
 
-    void updateItemLayer(int x, int y);
-
     int getAppletHeight();
 
     int getAppletWidth();
@@ -43,15 +41,11 @@ public interface Static {
 
     int[] getExternalPlayerLocations();
 
-    int getFps();
-
     int getGameDrawingMode();
 
     int[] getGameSettings();
 
     int getGameState();
-
-    LinkedNodeList[][][] getGroundItems();
 
     NodeTable getItemContainers();
 
@@ -117,15 +111,11 @@ public interface Static {
 
         void setExternalPlayerLocations(int[] value);
 
-        void setFps(int value);
-
         void setGameDrawingMode(int value);
 
         void setGameSettings(int[] value);
 
         void setGameState(int value);
-
-        void setGroundItems(LinkedNodeList[][][] value);
 
         void setItemContainers(NodeTable value);
 

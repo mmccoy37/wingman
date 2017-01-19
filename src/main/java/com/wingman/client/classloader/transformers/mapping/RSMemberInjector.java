@@ -29,16 +29,7 @@ public class RSMemberInjector implements Transformer {
         String cleanName = MappingsHelper.obfClasses.get(clazz.name);
 
         if (cleanName != null) {
-            String interfaceName = "com/wingman/client/api/generated/" + cleanName;
-
-            try {
-                Class.forName(interfaceName.replace("/", "."));
-            } catch (ClassNotFoundException e) {
-                System.out.println("Missing generated API for class " + cleanName + " (" + clazz.name + ")");
-                return clazz;
-            }
-
-            clazz.interfaces.add(interfaceName);
+            clazz.interfaces.add("com/wingman/client/api/generated/" + cleanName);
             clazz.interfaces.add("com/wingman/client/api/generated/" + cleanName + "$Unsafe");
         }
 
@@ -65,15 +56,15 @@ public class RSMemberInjector implements Transformer {
                 continue;
             }
 
-            Type obfType = Type.getType(m.type);
+            Type obfType = Type.getType(m.obfType);
             Type obfDesc = Type.getType(m.desc);
-            Type deobfType = Type.getType(m.realType);
-            Type deobfDesc = Type.getType(m.realDesc);
+            Type deobfType = Type.getType(m.deobfType);
+            Type deobfDesc = Type.getType(m.cleanDesc);
 
             MethodNode method = new MethodNode(
                     Opcodes.ASM5,
                     Opcodes.ACC_PUBLIC,
-                    m.realName,
+                    m.cleanName,
                     deobfDesc.toString(),
                     null,
                     new String[]{});
@@ -107,9 +98,9 @@ public class RSMemberInjector implements Transformer {
                 }
             }
 
-            if (m.hasOpaquePredicate) {
+            if (m.hasDummy) {
                 MappingsHelper.addInstructions(insnList,
-                        new LdcInsnNode(m.opaquePredicate)
+                        new LdcInsnNode(m.dummy)
                 );
             }
 
@@ -148,11 +139,11 @@ public class RSMemberInjector implements Transformer {
                 continue;
             }
 
-            Type obfType = Type.getType(f.type);
-            Type deobfType = Type.getType(f.realType);
+            Type obfType = Type.getType(f.obfType);
+            Type deobfType = Type.getType(f.deobfType);
 
-            boolean needsCast = !f.type.equals(f.realType);
-            String cleanName = MappingsHelper.toUpperCaseFirstCharacter(f.realName);
+            boolean needsCast = !f.obfType.equals(f.deobfType);
+            String cleanName = MappingsHelper.toUpperCaseFirstCharacter(f.cleanName);
 
             {
                 Type getterType = Type.getMethodType(deobfType);
@@ -186,7 +177,7 @@ public class RSMemberInjector implements Transformer {
                 }
 
                 if (f.getter != 1) {
-                    if (f.type.equals("I")) {
+                    if (f.obfType.equals("I")) {
                         MappingsHelper.addInstructions(insnList,
                                 new LdcInsnNode(new Integer("" + f.getter)),
                                 new InsnNode(Opcodes.IMUL)
@@ -235,7 +226,7 @@ public class RSMemberInjector implements Transformer {
                 }
 
                 if (f.getter != 1) {
-                    if (f.type.equals("I")) {
+                    if (f.obfType.equals("I")) {
                         MappingsHelper.addInstructions(insnList,
                                 new LdcInsnNode(new Integer("" + f.setter)),
                                 new InsnNode(Opcodes.IMUL)

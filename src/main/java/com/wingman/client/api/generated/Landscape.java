@@ -4,8 +4,6 @@ import java.lang.SuppressWarnings;
 
 @SuppressWarnings("all")
 public interface Landscape {
-    void removeItemLayer(int plane, int x, int y);
-
     LandscapeTile[][][] getLandscapeTiles();
 
     @SuppressWarnings("all")
